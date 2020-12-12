@@ -1,0 +1,7 @@
+s = ["ghv", "vgh", "am", "car", "ma", "rac"]
+a = {}
+for d in s:
+    reverse_d=d[::-1]
+    if reverse_d in s:
+       a[d] = (s.pop(s.index(reverse_d)))
+       print(a)
