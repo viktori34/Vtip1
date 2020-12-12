@@ -1,0 +1,10 @@
+
+s = str('''But, soft, behold! Lo, where it comes again!''')
+p=s.split()
+print(p)
+ch = {}
+
+dict((i, p.count(i)) for i in p)
+print(dict((i, p.count(i)) for i in p))
+#['But,', 'soft,', 'behold!', 'Lo,', 'where', 'it', 'comes', 'again!']
+#{'But,': 1, 'soft,': 1, 'behold!': 1, 'Lo,': 1, 'where': 1, 'it': 1, 'comes': 1, 'again!': 1}
