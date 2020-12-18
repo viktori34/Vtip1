@@ -1,0 +1,104 @@
+import random
+class Critter(object):
+
+    def __init__(self, name, hunger, boredom):
+        self.name = name
+        self.hunger = hunger
+        self.boredom = boredom
+
+    def __str__(self):
+        rep = self.name + "\n"
+        rep += "Голод: " + str(self.hunger) + "\n"
+        rep += "Скука: " + str(self.boredom) + "\n"
+        return rep
+
+    def __pass_time(self):
+        self.hunger += 1
+        self.boredom += 1
+
+    @property
+    def mood(self):
+        unhappiness = self.hunger + self.boredom
+        if unhappiness < 5:
+            m = "Отлично"
+        elif 5 <= unhappiness <= 10:
+            m = "Хорошо"
+        elif 11 <= unhappiness <= 15:
+            m = "Грустно"
+        else:
+            m = "Плохо"
+        return m
+
+    def talk(self):
+        print("Привет! Меня зовут", self.name, "\n")
+        print("Сейчас я чувствую себя", self.mood, "\n")
+        self.__pass_time()
+
+    def eat(self, food):
+        print("ОГО!! ЕДА!!")
+        if 0 < food <= 5:
+            self.hunger -= food
+            if self.hunger < 0:
+                self.hunger = 0
+        self.__pass_time()
+
+    def play(self, fun):
+        print("УИИИ! ХОЗЯИН СО МНОЙ ИГРАЕТ")
+        if 0 < fun <= 5:
+            self.boredom -= fun
+            if self.boredom < 0:
+                self.boredom = 0
+        self.__pass_time()
+
+
+def main():
+    farm = []
+    crit_number = input("\nСколько будет жить зверей?:")
+    for crit in range(int(crit_number)):
+        crit_name = input("\nКак их назвать?:\n")
+        crit = Critter(crit_name, hunger=random.randint(1, 16), boredom=random.randint(1, 16))
+        farm.append(crit)
+
+    print("\nНовые животные на ферме\n")
+    for crit in farm:
+        print(crit)
+
+    choice = None
+    while choice != "0":
+        print \
+            ("""
+       0 - Выход
+       1 - Настроение питомцев
+       2 - Накормите своего питомца
+       3 - Поиграйте со своим питомцем
+       """)
+
+        choice = input("ваш выбор")
+        print()
+
+        if choice == "0":
+            print("до свидания")
+            break
+
+        elif choice == "1":
+            for crit in farm:
+                crit.talk()
+
+        elif choice == "2":
+            food = int(input("Сколько дать еды?:\n"))
+            for crit in farm:
+                crit.eat(food)
+
+        elif choice == "3":
+            fun = int(input("Сколько вы хотите играть?:\n"))
+            for crit in farm:
+                crit.play(fun)
+
+        elif choice == "55":
+            for crit in farm:
+                print(crit.name, crit.boredom, crit.hunger)
+
+        else:
+            print("Извините в меню такого нет", choice)
+main()
+input("\n\nДля выхода нажмите 0")
